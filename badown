@@ -71,14 +71,16 @@ function mega_link_vars {
    fi
 }
 function file_downdec {
-   wget -O "$2".tmp  $speed -q --show-progress "$1" 
+   #wget -O "$2".tmp  $speed -q --show-progress "$1" 
+   aria2c -x8 -s8 -o "$2".tmp "$1"
    cat "$2.tmp" \
       | openssl enc -d -aes-128-ctr -K $3 -iv $4 \
       > "$2"
    rm -f "$2".tmp 
 }
 function file_down {
-   wget -O "$2".tmp $speed -q --show-progress "$1"
+   #wget -O "$2".tmp $speed -q --show-progress "$1"
+   aria2c -x8 -s8 -o "$2".tmp "$1"
    mv "$2".tmp "$2"
 }
 function tree_gen {
